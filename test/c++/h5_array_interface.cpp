@@ -234,17 +234,17 @@ TEST(H5, ArrayInterface3DArray) {
   // read in the data written to view_2 into a 2D array
   std::vector<int> data_in_2(18, 0);
   h5::array_interface::array_view view_in_2(h5::hdf5_type<int>(), (void *)data_in_2.data(), 2, false);
-  view_in_2.slab = slab_2;
+  view_in_2.slab         = slab_2;
   view_in_2.parent_shape = shape_2;
   h5::array_interface::read(file, "view_2", view_in_2);
 
   // read in the 3x3 arrays starting at (0, 0, 0) and (2, 0, 0) directly from view_1
   std::vector<int> data_in_3(18, 0);
   h5::array_interface::array_view view_in_3(h5::hdf5_type<int>(), (void *)data_in_3.data(), 2, false);
-  view_in_3.slab = slab_2;
+  view_in_3.slab         = slab_2;
   view_in_3.parent_shape = shape_2;
   h5::array_interface::read(file, "view_1", view_in_3, view_2.slab);
 
-    // check results
+  // check results
   for (int i = 0; i < 18; ++i) { EXPECT_EQ(data_in_2[i], data_in_3[i]); }
 }

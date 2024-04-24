@@ -129,7 +129,6 @@ TEST(H5, VectorOfCustomType) {
   {
     h5::file file{"test_vec_custom.h5", 'w'};
     h5::write(file, "vec_foo", v);
-
   }
 
   {
@@ -141,4 +140,3 @@ TEST(H5, VectorOfCustomType) {
     EXPECT_EQ(v, v_in);
   }
 }
-
