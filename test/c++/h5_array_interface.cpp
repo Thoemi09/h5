@@ -49,7 +49,7 @@ void check_strides(const std::vector<long> &np_strides, const std::vector<long> 
   for (int i = static_cast<int>(np_strides.size()) - 1; i >= 0; --i) {
     EXPECT_EQ(np_strides[i], product * h5_strides[i]);
     product *= parent_shape[i];
-    EXPECT_TRUE(parent_shape[i] >= view_shape[i]);
+    EXPECT_TRUE(parent_shape[i] >= view_shape[i] * h5_strides[i]);
   }
 }
 

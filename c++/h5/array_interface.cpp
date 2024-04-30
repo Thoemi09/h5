@@ -77,9 +77,6 @@ namespace h5::array_interface {
     // create the result vectors
     v_t parent_shape(rank), h5_strides(rank);
 
-    // from the above equations it follows that parent_shape[0] (size of the slowest varying dimension) is arbitrary
-    parent_shape[0] = view_size;
-
     // We initialize the h5_strides array to the values of np_strides
     // and successively divide off the parent_shape values as they appear
     // in the equations above.
@@ -90,6 +87,10 @@ namespace h5::array_interface {
       parent_shape[u + 1] = gcd;
       for (int v = u; v >= 0; --v) { h5_strides[v] /= gcd; }
     }
+
+    // from the above equations it follows that parent_shape[0] (size of the slowest varying dimension)
+    // is arbitrary as long as it is big enough to contain the elements selected by the hyperslab
+    parent_shape[0] = view_size * h5_strides[0];
 
     return {parent_shape, h5_strides};
   }
