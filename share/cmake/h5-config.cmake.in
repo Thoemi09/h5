@@ -23,6 +23,12 @@ set(@PROJECT_NAME@_ROOT @CMAKE_INSTALL_PREFIX@ CACHE STRING "@PROJECT_NAME@ root
 #endfunction()
 #find_dep(depname 1.0)
 
+# cmake versions prior to 3.26 require C language enabled
+# c.f. https://gitlab.kitware.com/cmake/cmake/-/issues/24241
+if(CMAKE_VERSION VERSION_LESS "3.26")
+  enable_language(C)
+endif()
+
 # Find hdf5 dependency
 find_package(HDF5 REQUIRED C HL)
 

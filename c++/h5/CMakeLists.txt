@@ -26,6 +26,12 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DESTINATION include FILES_MATCHING
 
 message(STATUS "-------- HDF5 detection -------------")
 
+# cmake versions prior to 3.26 require C language enabled
+# c.f. https://gitlab.kitware.com/cmake/cmake/-/issues/24241
+if(CMAKE_VERSION VERSION_LESS "3.26")
+  enable_language(C)
+endif()
+
 find_package(HDF5 REQUIRED C HL)
 
 # Link against interface target and export
